@@ -1,1 +1,2 @@
 # Add project Python dependencies here
+pytest==9.0.2
