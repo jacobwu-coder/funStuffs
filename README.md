@@ -1,4 +1,4 @@
-funStaff
+funstuff
 
 A small Codex project scaffold created by the assistant.
 
