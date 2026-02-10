@@ -1,5 +1,5 @@
 import sys
-from funStaff import main as app_main
+from main import main as app_main
 
 
 def test_main_default(capsys, monkeypatch):
