@@ -12,10 +12,13 @@ Current subprojects
   - Usage: python -m todo add "Buy milk"; python -m todo list --all
   - Data file: ~/.local/share/funstuff/todos.json
 
+- experiments/ — experiments in retrieval & summarization
+  - Path: experiments/
+  - Notable: experiments/topic_summarizer.py — qmd + OpenAI demo (see experiments/README.md)
+
 Planned subprojects (examples)
 - web/ — tiny web demos (Flask/Static)  
 - tools/ — small CLI utilities (git helpers, data cleaners)  
-- experiments/ — QMD + retrieval samples and summarizers
 
 Workflows
 - Generate code with Codex CLI (npx @openai/codex) or via the coding-agent skill and review before committing.
