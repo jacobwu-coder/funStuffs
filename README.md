@@ -4,6 +4,9 @@ Overview
 - This repository is a workspace for small, focused projects generated and maintained with Codex + OpenClaw assistance.
 - Philosophy: local-first, modular, and documented. Each subproject lives in its own folder under the repo root.
 
+Subprojects index
+- See SUBPROJECTS.md for the full index and status of subprojects in this repo.
+
 Current subprojects
 - todo/ — simple CLI todo app (first version completed)
   - Usage: python -m todo add "Buy milk"; python -m todo list --all
@@ -22,7 +25,7 @@ How to add a new subproject
 1. mkdir myproject && cd myproject
 2. Create a minimal README and a small script or package (we recommend package layout)
 3. Run Codex to scaffold features or ask the coding-agent to generate code interactively
-4. Add tests under ../tests and run pytest from the repo root
+4. Add tests under tests/ or myproject/tests and run pytest from the repo root
 5. Commit and push to your fork; open PRs if collaborating
 
 AI & code generation (best practices)
