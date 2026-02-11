@@ -31,7 +31,7 @@ DEFAULT_FILE = os.path.join(DEFAULT_DIR, "todos.json")
 
 
 def ensure_storage(path=DEFAULT_FILE):
-    d = os.path.dirname(path)
+    d = os.path.dirname(path) or '.'
     if not os.path.exists(d):
         os.makedirs(d, exist_ok=True)
     if not os.path.exists(path):
