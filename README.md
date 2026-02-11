@@ -1,4 +1,4 @@
-funStuff — playground for small coding projects (AI-assisted)
+funStuffs — playground for small coding projects (AI-assisted)
 
 Overview
 - This repository is a workspace for small, focused projects generated and maintained with Codex + OpenClaw assistance.
