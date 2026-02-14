@@ -1,0 +1,64 @@
+---
+title: "DOT & RAG — Graphs and Retrieval-Augmented Generation"
+format: html
+execute:
+  echo: true
+  eval: true
+---
+
+# DOT (Graphviz) and RAG (Retrieval-Augmented Generation)
+
+This document demonstrates two related concepts useful for documentation and AI workflows:
+
+- DOT: the Graphviz DOT language for describing graphs. We show a small example and render it via Python/graphviz.
+- RAG: Retrieval-Augmented Generation — how retrieval from a document store (vector DB) can be integrated with an LLM to produce grounded responses.
+
+## DOT example
+
+Below is a small DOT graph that represents a simple data pipeline.
+
+```{dot}
+digraph pipeline {
+  rankdir=LR;
+  node [shape=box, style=filled, color=lightgrey];
+  ingest -> index -> retrieve -> rerank -> generate;
+  ingest [label="Ingest\n(raw docs)"];
+  index [label="Index\n(vector DB)"];
+  retrieve [label="Retrieve\n(top-k docs)"];
+  rerank [label="Rerank\n(ML model)"];
+  generate [label="Generate\n(LLM + context)"];
+}
+```
+
+(If this environment can't render `.dot` blocks automatically, the DOT source above can be rendered using graphviz or Python's `graphviz` package.)
+
+## RAG — overview and example flow
+
+Retrieval-Augmented Generation (RAG) combines a retriever (e.g., vector search over embeddings) with a generator (LLM) so that the model generates answers grounded in retrieved documents.
+
+Simple RAG pseudocode:
+
+```{python}
+# Pseudocode (not executed):
+# 1. Query -> embed -> search vector DB -> top_k documents
+# 2. Optionally rerank documents for relevance
+# 3. Build prompt: system + retrieved doc snippets + user query
+# 4. Call LLM with prompt -> answer
+
+# Example (pseudo):
+query = "How to clean a Weimaraner coat?"
+retrieved = vector_db.search(embedding(query), top_k=5)
+context = "\n\n".join([d.text for d in retrieved])
+prompt = f"Use the following documents to answer the question:\n{context}\nQuestion: {query}\nAnswer:" 
+# response = llm.generate(prompt)
+```
+
+Key points:
+- Keep retrieval results short (clip to fit prompt tokens).
+- Reranking helps when the initial vector similarity retrieves noisy hits.
+- Use citation markers in the generated text if you want traceability to sources.
+
+## References & next steps
+- Graphviz (DOT): https://graphviz.org/
+- RAG papers and examples: see Retrieval-Augmented Generation literature and libraries (Haystack, LangChain, etc.).
+
