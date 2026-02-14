@@ -1,0 +1,39 @@
+name: Build and Upload Plots
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt || true
+      - name: Generate example plots (if scripts exist)
+        run: |
+          mkdir -p plots
+          # If there is a script to generate plots, run it; otherwise create a small example
+          if [ -f scripts/generate_plots.py ]; then
+            python scripts/generate_plots.py
+          else
+            python - << 'PY'
+import matplotlib.pyplot as plt
+import numpy as np
+plt.figure(); x=np.linspace(0,10,100); plt.plot(x, np.sin(x)); plt.savefig('plots/example_plot_from_funstuff.png')
+PY
+          fi
+      - name: Upload plots artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: funstuff-plots
+          path: plots/**
