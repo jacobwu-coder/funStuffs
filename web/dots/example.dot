@@ -1,0 +1,11 @@
+digraph example {
+  rankdir=LR;
+  node [shape=box, style=filled, fillcolor="#f8f8f8"];
+  Start [label="Start"];
+  Process [label="Process Data"];
+  Decision [label="Decision?", shape=diamond, fillcolor="#fff0d9"];
+  End [label="End", shape=doublecircle, fillcolor="#e0ffe0"];
+  Start -> Process -> Decision;
+  Decision -> End [label="yes", color=green];
+  Decision -> Process [label="no", color=red];
+}
