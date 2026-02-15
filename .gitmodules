@@ -1,0 +1,3 @@
+[submodule "external/funStuffs"]
+	path = external/funStuffs
+	url = git@github.com:jacobwu-coder/funStuffs.git
