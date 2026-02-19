@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Tidy bookmarks: simple HTML read, dedupe, and reorganize tool.
+"""Tidy bookmarks: simple HTML/JSON read, dedupe, and reorganize tool.
 
 Usage:
   python3 tidy_bookmarks.py --input backups/bookmarks-YYYYMMDDTHHMMSSZ.html --audit
   python3 tidy_bookmarks.py --input backups/bookmarks-...html --outdir out --simulate
-  python3 tidy_bookmarks.py --input ...html --outdir out
+  python3 tidy_bookmarks.py --input backups/Bookmarks-Profile.json --outdir out --audit
 
-This script is intentionally conservative: it reads exported HTML bookmarks (Chrome export) and
-writes a reorganized HTML file to outdir/. It does not modify browser state.
+This script is intentionally conservative: it reads exported HTML bookmarks (Chrome export)
+or Chrome Bookmarks JSON file and writes a reorganized HTML file to outdir/. It does not modify browser state.
 """
 import argparse
 import os
@@ -54,6 +54,26 @@ def load_bookmarks_from_html(path):
     return p.bookmarks
 
 
+def load_bookmarks_from_chrome_json(path):
+    # Chrome 'Bookmarks' JSON structure: roots -> (bookmark_bar | other | synced) -> children
+    with open(path,'r',encoding='utf-8') as f:
+        data = json.load(f)
+    urls = []
+    def walk(node):
+        if isinstance(node, dict):
+            t = node.get('type')
+            if t == 'url':
+                urls.append({'name': node.get('name',''), 'url': node.get('url','')})
+            for k, v in node.items():
+                if isinstance(v, (dict, list)):
+                    walk(v)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+    walk(data.get('roots', {}))
+    return urls
+
+
 def dedupe_bookmarks(bookmarks):
     seen = set()
     out = []
@@ -85,11 +105,11 @@ def reorganize(bookmarks, order=None):
         # crude routing rules — customize as needed
         if any(x in domain for x in ['github.com','gitlab.com']):
             buckets['40-Tools'].append(b)
-        elif any(x in domain for x in ['edu','udrive','udel.edu']):
+        elif any(x in domain for x in ['edu','udel.edu','canvas','instructure']):
             buckets['20-School'].append(b)
         elif any(x in domain for x in ['medium.com','x.com','twitter.com','substack.com']):
             buckets['30-Research'].append(b)
-        elif 'finance' in u or any(x in domain for x in ['bank','bloomberg','yahoo.com']):
+        elif any(x in domain for x in ['mexc.com','binance.com','coinbase.com','bloomberg.com','finance']):
             buckets['50-Finance'].append(b)
         else:
             others.append(b)
@@ -119,8 +139,36 @@ def main():
     p.add_argument('--audit', action='store_true')
     args = p.parse_args()
 
-    bookmarks = load_bookmarks_from_html(args.input)
-    print(f'Loaded {len(bookmarks)} bookmarks from {args.input}')
+    input_path = args.input
+    if not os.path.exists(input_path):
+        print(f'Input file not found: {input_path}', file=sys.stderr)
+        sys.exit(1)
+
+    # Support both HTML (export) and Chrome Bookmarks JSON
+    bookmarks = []
+    if input_path.lower().endswith('.html') or input_path.lower().endswith('.htm'):
+        bookmarks = load_bookmarks_from_html(input_path)
+    elif input_path.lower().endswith('.json') or os.path.basename(input_path) == 'Bookmarks':
+        # attempt to parse Chrome JSON format
+        try:
+            bookmarks = load_bookmarks_from_chrome_json(input_path)
+        except Exception as e:
+            print('Failed to parse as Chrome Bookmarks JSON:', e, file=sys.stderr)
+            sys.exit(2)
+    else:
+        # try to guess by content
+        with open(input_path,'r',encoding='utf-8') as f:
+            head = f.read(1024)
+        if '<!doctype html' in head.lower() or '<html' in head.lower():
+            bookmarks = load_bookmarks_from_html(input_path)
+        else:
+            try:
+                bookmarks = load_bookmarks_from_chrome_json(input_path)
+            except Exception as e:
+                print('Unknown bookmark file format and parsing failed:', e, file=sys.stderr)
+                sys.exit(3)
+
+    print(f'Loaded {len(bookmarks)} bookmarks from {input_path}')
 
     deduped = dedupe_bookmarks(bookmarks)
     print(f'Deduped -> {len(deduped)} unique bookmarks')
@@ -148,7 +196,7 @@ def main():
     if args.simulate:
         print('Simulation only: file written for review. Will not modify browser bookmarks.')
     else:
-        print('Done. To apply changes to browser, export this HTML from the out/ folder and import it into Chrome Bookmarks Manager (or use browser automation).')
+        print('Done. To apply changes to browser, import this HTML from the out/ folder into Chrome Bookmarks Manager (or use browser automation).')
 
 if __name__ == '__main__':
     main()
