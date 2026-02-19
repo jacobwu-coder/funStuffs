@@ -16,6 +16,11 @@ Current subprojects
   - Path: experiments/
   - Notable: experiments/topic_summarizer.py — qmd + OpenAI demo (see experiments/README.md)
 
+- quant_demo/ — minimal CCXT grid strategy demo (testnet-friendly)
+  - Path: quant_demo/
+  - Files: demo_grid.py, README.md, requirements.txt
+  - Purpose: simulate a simple grid strategy using public market data (LIVE mode disabled by default). See quant_demo/README.md for setup and safety notes.
+
 Planned subprojects (examples)
 - web/ — tiny web demos (Flask/Static)  
 - tools/ — small CLI utilities (git helpers, data cleaners)  
