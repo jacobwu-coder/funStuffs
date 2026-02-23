@@ -1,0 +1,35 @@
+---
+description: Core workflow and coding conventions for the funStuffs playground repo
+alwaysApply: true
+---
+
+# funStuffs Core Rules
+
+- **Project shape**
+  - This repo is a **playground of small, focused subprojects** (see `README.md` and `SUBPROJECTS.md`).
+  - Treat each subfolder (`todo/`, `web/`, `tools/`, `experiments/`, etc.) as a mostly independent mini-project with its own README and entry points.
+  - Prefer adding new work as a new subproject or inside an existing one, not by growing `main.py` arbitrarily.
+
+- **Entry points**
+  - Root entry: `main.py` (`python main.py`) is a tiny demo and should stay simple.
+  - `todo/` is a **package with a CLI entry** (`python -m todo`); keep CLI glue thin and most logic in importable functions.
+
+- **Python style & structure**
+  - Prefer **small, pure functions** and thin I/O or CLI wrappers.
+  - Keep modules short and focused; if a file grows large, split by responsibility.
+  - Avoid clever, hard-to-read constructs; explicit is better than implicit.
+
+- **Testing & safety**
+  - Use `pytest` from the repo root; add or update tests in `tests/` or the relevant subproject when changing behavior.
+  - After non-trivial edits, **run tests before considering the work “done”**.
+  - When touching the todo CLI, cover core flows: add, list, done, remove, clear-completed, search, and storage edge cases.
+
+- **AI-assisted workflow**
+  - Be **biased toward small, incremental changes** with clear intent.
+  - Do not introduce heavy dependencies without an explicit reason; prefer standard library first.
+  - Keep generated code well-documented via READMEs and, where needed, concise comments explaining non-obvious decisions (not narrating obvious code).
+
+- **Documentation**
+  - When adding or changing behavior in a subproject, update its local `README.md` and, if relevant, `SUBPROJECTS.md`.
+  - Keep docs short, example-driven (especially CLI usage), and up to date with actual behavior.
+
