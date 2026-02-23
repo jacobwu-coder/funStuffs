@@ -1,0 +1,81 @@
+archive_patterns:
+- lonelyplanet
+- 400gb.com
+- w3.huawei.com/dominoapp
+folders:
+- 🎓 Academic
+- 💼 Professional
+- 💼 Huawei
+- 🛂 US-CN Life & Compliance
+- 🌍 Travel & Global Logistics
+- 🇪🇸 Language Proficiency
+- 🎸 Personal
+- 🎸 Personal - Music
+- 🎸 Personal - Bodybuilding
+- 🎸 Personal - Photography
+- 🎸 Personal - Cooking
+- 🏫 Family Education
+- 存档
+routing:
+  airbnb: 🌍 Travel & Global Logistics
+  allrecipes.com: 🎸 Personal - Cooking
+  bandcamp.com: 🎸 Personal - Music
+  bank: 🛂 US-CN Life & Compliance
+  bodybuilding: 🎸 Personal - Bodybuilding
+  bodybuilding.com: 🎸 Personal - Bodybuilding
+  calm: 🎸 Personal - Meditation
+  calm.com: 🎸 Personal - Meditation
+  canvas: 🎓 Academic
+  chase.com: 🛂 US-CN Life & Compliance
+  chord: 🎸 Personal - Music
+  chords: 🎸 Personal - Music
+  cook: 🎸 Personal - Cooking
+  cookpad: 🎸 Personal - Cooking
+  delta.com: 🌍 Travel & Global Logistics
+  evus: 🛂 US-CN Life & Compliance
+  expedia: 🌍 Travel & Global Logistics
+  fender: 🎸 Personal
+  finder: 🎸 Personal - Music
+  fitness: 🎸 Personal - Bodybuilding
+  flickr.com: 🎸 Personal - Photography
+  food: 🎸 Personal - Cooking
+  foodnetwork.com: 🎸 Personal - Cooking
+  github.com: 💼 Professional
+  gitlab.com: 💼 Professional
+  guitar: 🎸 Personal - Music
+  guitarhabits.com: 🎸 Personal - Music
+  headspace.com: 🎸 Personal - Meditation
+  huawei.com: 💼 Huawei
+  ilLearning: 💼 Professional
+  instructure: 🎓 Academic
+  meditation: 🎸 Personal - Meditation
+  medium.com: 🌍 Travel & Global Logistics
+  melody: 🎸 Personal - Music
+  menshealth.com: 🎸 Personal - Bodybuilding
+  mexc.com: 🇪🇸 Language Proficiency
+  mindfulness: 🎸 Personal - Meditation
+  mit: 🏫 Family Education
+  music: 🎸 Personal - Music
+  pangu: 💼 Professional
+  photo: 🎸 Personal - Photography
+  photography: 🎸 Personal - Photography
+  police: 🛂 US-CN Life & Compliance
+  progression: 🎸 Personal - Music
+  recipe: 🎸 Personal - Cooking
+  riff: 🎸 Personal - Music
+  scale: 🎸 Personal - Music
+  song: 🎸 Personal - Music
+  soundsamerican: 🇪🇸 Language Proficiency
+  spotify.com: 🎸 Personal - Music
+  tab: 🎸 Personal - Music
+  tablature: 🎸 Personal - Music
+  tabs: 🎸 Personal - Music
+  twitter.com: 🌍 Travel & Global Logistics
+  udel: 🎓 Academic
+  udel.edu: 🎓 Academic
+  united.com: 🌍 Travel & Global Logistics
+  unsplash: 🎸 Personal - Photography
+  unsplash.com: 🎸 Personal - Photography
+  uscis.gov: 🛂 US-CN Life & Compliance
+  workout: 🎸 Personal - Bodybuilding
+  writeandimprove: 🇪🇸 Language Proficiency
