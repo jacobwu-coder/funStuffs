@@ -6,7 +6,8 @@ Purpose
 
 Contents
 - export_bookmarks.sh — convenience script to export Chrome bookmarks to HTML (backups). Mac-specific (uses Chrome's default profile path).
-- tidy_bookmarks.py — Python script to parse Chrome bookmarks HTML, dedupe exact-duplicate URLs, and write a reorganized HTML file into an output folder. It can also produce a JSON index.
+- tidy_bookmarks.py — Python script to parse Chrome bookmarks HTML (or Chrome Bookmarks JSON), dedupe exact-duplicate URLs, and write a reorganized HTML file into an output folder. It can also produce a JSON index.
+- json_to_chrome_html.py — convert Chrome Bookmarks JSON to Chrome-importable HTML (Netscape bookmark format). Use when you have a JSON backup and want to import it via Bookmarks Manager → Import Bookmarks.
 - README.md — this file.
 
 Quickstart
@@ -24,6 +25,11 @@ Quickstart
    python3 tidy_bookmarks.py --input backups/bookmarks-YYYYMMDD-HHMMSS.html --outdir out --simulate
 
 5) If you like the result, run without --simulate to produce the reorganized HTML.
+
+JSON to HTML (Chrome import)
+- If you have a Chrome Bookmarks JSON file (e.g. from backups/ or a copied `Bookmarks` file), convert it to HTML so Chrome can import it:
+  python3 json_to_chrome_html.py --input backups/Bookmarks-Profile-YYYYMMDD.json --output out/bookmarks-from-json.html
+- Optional: `--folder-name "My folder"` and `--title "Bookmarks"`. Then in Chrome: Bookmarks Manager → ⋮ → Import Bookmarks → select the output HTML.
 
 Safety
 - The tool never writes to your Chrome profile. It works on exported HTML backups only. Always keep the backups/ folder until you’ve verified the result.
